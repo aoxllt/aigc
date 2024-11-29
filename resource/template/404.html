@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 Not Found</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f2f2f2; color: #333; text-align: center; padding: 50px; }
+        h1 { font-size: 100px; color: #e74c3c; }
+        p { font-size: 24px; }
+        a { color: #3498db; text-decoration: none; font-weight: bold; }
+    </style>
+    <script>
+        // 设置倒计时秒数
+        var countdown = 5;
+
+        // 每秒更新一次
+        function updateCountdown() {
+            // 更新显示的倒计时时间
+            document.getElementById("countdown").innerText = countdown;
+
+            // 当倒计时为 0 时，跳转到主页
+            if (countdown === 0) {
+                window.location.href = "http://127.0.0.1:5137"; // 跳转到主页
+            } else {
+                countdown--;
+                setTimeout(updateCountdown, 1000); // 每秒更新一次
+            }
+        }
+
+        // 页面加载后开始倒计时
+        window.onload = function() {
+            updateCountdown();
+        };
+    </script>
+</head>
+<body>
+<h1>404</h1>
+<p>抱歉，你访问的页面不存在！</p>
+<p>页面将在 <span id="countdown">5</span> 秒后自动跳转到主页。</p>
+<p>如果没有自动跳转，请点击 <a href="http://127.0.0.1:5137">返回主页</a></p>
+</body>
+</html>
