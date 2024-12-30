@@ -13,5 +13,9 @@ func (g GetretController) Get(ctx context.Context, req *v1.GetretReq) (res *v1.G
 	if err != nil {
 		return nil, err
 	}
+	if res.Mes == "{\"data\":[\"\"]}" {
+		res.Mes = "null"
+		return res, nil
+	}
 	return res, nil
 }

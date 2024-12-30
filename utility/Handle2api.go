@@ -78,8 +78,9 @@ func Handle2api() {
 					return
 				}
 				// 更新数据库
-				_, err = dao.Content.Ctx(dbCtx).Where("hashuid=?", t.PreContent.Hashuid).Data(g.Map{
+				_, err = dao.Content.Ctx(dbCtx).Where("hashuid=? and content=?", t.PreContent.Hashuid, t.PreContent.Content).Data(g.Map{
 					"HandleContent": handleContent,
+					"handletime":    time.Now(),
 				}).Update()
 				if err != nil {
 					fmt.Printf("更新数据库失败: %v\n", err)

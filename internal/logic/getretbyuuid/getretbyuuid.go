@@ -37,7 +37,7 @@ func (g Getretbyuuid) GetRet(ctx context.Context, req *v1.GetretbyuuidReq) (stri
 	for _, record := range all {
 		// 获取 handlecontent 字段
 		if handlecontent, exists := record["handlecontent"]; exists {
-			contents = append(contents, handlecontent.String())
+			contents = append(contents, handlecontent.String(), record["handletime"].String())
 		}
 	}
 	res := model.Response{Data: contents}
