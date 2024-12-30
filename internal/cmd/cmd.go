@@ -5,6 +5,7 @@ import (
 	"aigc-go/internal/controller/getretbyuuid"
 	"aigc-go/internal/controller/hello"
 	"aigc-go/internal/controller/interceptor"
+	"aigc-go/internal/controller/try"
 	"aigc-go/internal/controller/upload"
 	uuid2 "aigc-go/internal/controller/uuid"
 	"context"
@@ -46,6 +47,7 @@ var (
 					getret.NewGetretV1(),
 					getretbyuuid.NewGetretbyuuidV1(),
 					interceptor.NewInterceptorV1(),
+					try.NewTryController(),
 				)
 
 			})

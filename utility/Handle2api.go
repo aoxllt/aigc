@@ -10,8 +10,10 @@ import (
 	"fmt"
 	"github.com/gogf/gf/v2/frame/g"
 	"math"
+	"math/rand"
 	"net/http"
 	"path/filepath"
+	"strconv"
 	"strings"
 	"time"
 )
@@ -67,12 +69,12 @@ func Handle2api() {
 				}
 
 				// 调用 API 处理内容
-				retContent, err := uploadToAPI(t.PreContent.Content)
+				retContent, err := UploadToAPI(t.PreContent.Content)
 				if err != nil {
 					fmt.Printf("处理 API 请求失败: %v\n", err)
 					continue
 				}
-				handleContent, err := processResponseData(retContent, data, filepath)
+				handleContent, err := ProcessResponseData(retContent, data, filepath)
 				fmt.Println(handleContent)
 				if err != nil {
 					return
@@ -91,7 +93,12 @@ func Handle2api() {
 
 }
 
-func processResponseData(response *http.Response, data map[string][]string, path string) (string, error) {
+func ProcessResponseData(response *http.Response, data map[string][]string, path string) (string, error) {
+	rand.Seed(time.Now().UnixNano())
+	path_default := "try" + strconv.Itoa(rand.Intn(10000))
+	if len(path) == 0 {
+		path = path_default
+	}
 	defer response.Body.Close()
 	var apiResponse map[string]APIResponse
 	err := json.NewDecoder(response.Body).Decode(&apiResponse)
@@ -142,7 +149,7 @@ func average(numbers []float64) float64 {
 	return sum / float64(len(numbers))
 }
 
-func uploadToAPI(jsonData string) (*http.Response, error) {
+func UploadToAPI(jsonData string) (*http.Response, error) {
 	// 将字符串解析为 JSON 格式
 	var data interface{}
 	err := json.Unmarshal([]byte(jsonData), &data)

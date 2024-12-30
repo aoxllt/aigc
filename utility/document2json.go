@@ -15,14 +15,14 @@ func init() {
 func Document2Json(filepath string) (map[string][]string, error) {
 	var pyt Python
 	content := pyt.Handle("." + filepath)
-	data, err := processTextToJSON(content, 200)
+	data, err := ProcessTextToJSON(content, 200)
 	if err != nil {
 		return nil, err
 	}
 	return data, nil
 }
 
-func processTextToJSON(text string, maxLength int) (map[string][]string, error) {
+func ProcessTextToJSON(text string, maxLength int) (map[string][]string, error) {
 	splitParagraphs := func(text string) []string {
 		paragraphs := strings.Split(text, "\n")
 		var result []string
@@ -76,7 +76,6 @@ func processTextToJSON(text string, maxLength int) (map[string][]string, error) 
 		result[fmt.Sprintf("paragraph%d", i+1)] = parts
 	}
 
-	// 将结果数据转成 JSON 字符串
 	return result, nil
 }
 
