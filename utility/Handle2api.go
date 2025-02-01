@@ -13,9 +13,11 @@ import (
 	"math/rand"
 	"net/http"
 	"path/filepath"
+	"regexp"
 	"strconv"
 	"strings"
 	"time"
+	"unicode/utf8"
 )
 
 type APIResponse struct {
@@ -199,7 +201,8 @@ func createFinalJSON(jsonData1 map[string][]string, jsonData2 map[string]APIResp
 		if value2, exists := jsonData2[key]; exists {
 			// 合并文本
 			paragraphText := strings.Join(value1, "")
-			numWords := len(strings.ReplaceAll(paragraphText, " ", ""))
+			re := regexp.MustCompile(`\s+`)
+			numWords := utf8.RuneCountInString(re.ReplaceAllString(paragraphText, ""))
 
 			// 计算 suspectedText
 			classes := value2.Classes[0]
@@ -211,9 +214,11 @@ func createFinalJSON(jsonData1 map[string][]string, jsonData2 map[string]APIResp
 			paragraphCount++
 			totalSuspectedText += int(suspectedText)
 			totalConfidence += confidence
+			index := strings.Replace(key, "paragraph", "", -1)
 
 			// 将内容添加到 content 列表
 			content = append(content, map[string]interface{}{
+				"index":         index,
 				key:             paragraphText,
 				"classes":       classes,
 				"suspectedtext": int(suspectedText),
