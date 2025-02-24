@@ -1,0 +1,26 @@
+server:
+  # 基本配置
+  address:             ":5131"                      # 本地监听地址。默认":80"，多个地址以","号分隔。例如："192.168.2.3:8000,10.0.3.10:8001"
+  clientMaxBodySize:    "200MB"
+
+  # Cookie配置
+  cookieMaxAge:        "744h"             # Cookie有效期。默认为365天
+  cookiePath:          "/"                # Cookie有效路径。默认为"/"表示全站所有路径下有效
+  cookieDomain:        ""                 # Cookie有效域名。默认为当前配置Cookie时的域名
+
+  # Sessions配置
+  SessionCookieMaxAge: "30d"
+  sessionMaxAge:       "30d"              # Session有效期。默认为24小时
+  sessionIdName:       "uuid"      # SessionId的键名名称。默认为gfsessionid
+  sessionCookieOutput: true               # Session特性开启时，是否将SessionId返回到Cookie中。默认true
+
+# 配置数据库
+database:
+  link: "mysql:root:test1234@tcp(127.0.0.1:3309)/aigc?loc=Local&parseTime=true"
+
+# Redis 配置示例
+redis:
+  # 单实例配置示例1
+  default:
+    address: "127.0.0.1:6379"
+    db:      "0"
